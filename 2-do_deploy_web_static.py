@@ -28,34 +28,34 @@ def do_deploy(archive_path):
     if put(archive_path, "/tmp/").failed:
         return False
     # create the folder to uncopress the archive to it
-    if run("sudo mkdir -p /data/web_static/releases/{}/"
+    if run("mkdir -p /data/web_static/releases/{}/"
            .format(filename)).failed:
         return False
     # Uncompress the archive
-    if (run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
+    if (run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
             .format(archive, filename)).failed):
         return False
     # Delete the archive from the web server
-    if (run("sudo rm /tmp/{}".format(archive)).failed):
+    if (run("rm /tmp/{}".format(archive)).failed):
         return False
 
     # move the contenet of web_static up
-    if run("sudo mv /data/web_static/releases/{}/web_static/* \
+    if run("mv /data/web_static/releases/{}/web_static/* \
     /data/web_static/releases/{}/"
            .format(filename, filename)).failed:
         return False
     # delete web_static dir
-    if run("sudo rm -rf /data/web_static/releases/{}/web_static"
+    if run("rm -rf /data/web_static/releases/{}/web_static"
            .format(filename)).failed:
         return False
 
     # Delete the symbolic link /data/web_static/current
-    if run("sudo rm -rf /data/web_static/current").failed:
+    if run("rm -rf /data/web_static/current").failed:
         return False
     # Create a new the symbolic link /data/web_static/current
     # on the web server,
     # linked to the new version of your code
-    if run("sudo ln -s /data/web_static/releases/{}/ /data/web_static/current"
+    if run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
            .format(filename)).failed:
         return False
     print("New version deployed!")
