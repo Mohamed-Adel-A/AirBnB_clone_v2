@@ -13,6 +13,7 @@ from fabric.api import run
 
 env.hosts = ['100.25.12.89', '18.206.233.88']
 
+
 def do_deploy(archive_path):
     """
     Function to deploy archive to the servers
@@ -23,7 +24,6 @@ def do_deploy(archive_path):
     archive = archive_path.split('/')[-1]
     filename = archive.split('.')[0]
 
-    
     # Upload the archive to the /tmp/ directory of the web server
     if put(archive_path, "/tmp/").failed:
         return False
@@ -32,7 +32,7 @@ def do_deploy(archive_path):
         return False
     # Uncompress the archive
     if (run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
-           .format(archive, filename)).failed):
+            .format(archive, filename)).failed):
         return False
     # Delete the archive from the web server
     if (run("rm /tmp/{}".format(archive)).failed):
@@ -41,11 +41,11 @@ def do_deploy(archive_path):
     # move the contenet of web_static up
     if run("mv /data/web_static/releases/{}/web_static/* \
     /data/web_static/releases/{}/"
-        .format(filename, filename)).failed:
+           .format(filename, filename)).failed:
         return False
     # delete web_static dir
     if run("sudo rm -rf /data/web_static/releases/{}/web_static"
-        .format(filename)).failed:
+           .format(filename)).failed:
         return False
 
     # Delete the symbolic link /data/web_static/current
@@ -55,6 +55,6 @@ def do_deploy(archive_path):
     # on the web server,
     # linked to the new version of your code
     if run("sudo ln -s /data/web_static/releases/{}/ /data/web_static/current"
-        .format(filename)).failed:
+           .format(filename)).failed:
         return False
     return True
