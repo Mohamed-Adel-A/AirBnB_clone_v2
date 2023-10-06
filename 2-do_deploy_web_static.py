@@ -28,7 +28,8 @@ def do_deploy(archive_path):
     if put(archive_path, "/tmp/").failed:
         return False
     # create the folder to uncopress the archive to it
-    if run("sudo mkdir -p /data/web_static/releases/{}/".format(filename)).failed:
+    if run("sudo mkdir -p /data/web_static/releases/{}/"
+           .format(filename)).failed:
         return False
     # Uncompress the archive
     if (run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
