@@ -79,7 +79,7 @@ def do_deploy(archive_path):
     return True
 
 
-def def deploy():
+def deploy():
     """
     Function to deploy web server
     """
