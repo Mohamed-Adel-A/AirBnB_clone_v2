@@ -26,6 +26,8 @@ def do_deploy(archive_path):
     try:
         # Upload the archive to the /tmp/ directory of the web server
         put(archive_path, "/tmp/")
+        # remove file if exist
+        run("rm -rf /data/web_static/releases/{}/"
         # create the folder to uncopress the archive to it
         run("sudo mkdir -p /data/web_static/releases/{}/".format(filename))
         # Uncompress the archive
