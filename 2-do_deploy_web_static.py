@@ -57,4 +57,5 @@ def do_deploy(archive_path):
     if run("sudo ln -s /data/web_static/releases/{}/ /data/web_static/current"
            .format(filename)).failed:
         return False
+    print("New version deployed!")
     return True
