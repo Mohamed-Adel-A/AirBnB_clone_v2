@@ -28,18 +28,18 @@ def do_deploy(archive_path):
     if put(archive_path, "/tmp/").failed:
         return False
     # create the folder to uncopress the archive to it
-    if run("mkdir -p /data/web_static/releases/{}/".format(filename)).failed:
+    if run("sudo mkdir -p /data/web_static/releases/{}/".format(filename)).failed:
         return False
     # Uncompress the archive
-    if (run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
+    if (run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
             .format(archive, filename)).failed):
         return False
     # Delete the archive from the web server
-    if (run("rm /tmp/{}".format(archive)).failed):
+    if (run("sudo rm /tmp/{}".format(archive)).failed):
         return False
 
     # move the contenet of web_static up
-    if run("mv /data/web_static/releases/{}/web_static/* \
+    if run("sudo mv /data/web_static/releases/{}/web_static/* \
     /data/web_static/releases/{}/"
            .format(filename, filename)).failed:
         return False
