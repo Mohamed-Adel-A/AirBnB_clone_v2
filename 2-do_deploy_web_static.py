@@ -14,6 +14,9 @@ from fabric.api import run
 env.hosts = ['100.25.12.89', '18.206.233.88']
 
 def do_deploy(archive_path):
+    """
+    Function to deploy archive to the servers
+    """
     if not path(archive_path):
         return (False)
 
