@@ -23,34 +23,41 @@ def do_deploy(archive_path):
     archive = archive_path.split('/')[-1]
     filename = archive.split('.')[0]
 
-    try:
-        # Upload the archive to the /tmp/ directory of the web server
-        put(archive_path, "/tmp/")
-        # remove file if exist
-        run("rm -rf /data/web_static/releases/{}/".format(filename))
-        # create the folder to uncopress the archive to it
-        run("sudo mkdir -p /data/web_static/releases/{}/".format(filename))
-        # Uncompress the archive
-        run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
-            .format(archive, filename))
-        # Delete the archive from the web server
-        run("sudo rm /tmp/{}".format(archive))
-
-        # move the contenet of web_static up
-        run("sudo mv /data/web_static/releases/{}/web_static/* \
-        /data/web_static/releases/{}/"
-            .format(filename, filename))
-        # delete web_static dir
-        run("sudo rm -rf /data/web_static/releases/{}/web_static"
-            .format(filename))
-
-        # Delete the symbolic link /data/web_static/current
-        run("sudo rm -rf /data/web_static/current")
-        # Create a new the symbolic link /data/web_static/current
-        # on the web server,
-        # linked to the new version of your code
-        run("sudo ln -s /data/web_static/releases/{}/ /data/web_static/current"
-            .format(filename))
-        return True
-    except:
+    
+    # Upload the archive to the /tmp/ directory of the web server
+    if put(archive_path, "/tmp/").failed:
         return False
+    # remove file if exist
+    if run("rm -rf /data/web_static/releases/{}/".format(filename)).failed:
+        return False
+    # create the folder to uncopress the archive to it
+    if run("sudo mkdir -p /data/web_static/releases/{}/".format(filename)).failed:
+        return False
+    # Uncompress the archive
+    if (run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
+           .format(archive, filename)).failed):
+        return False
+    # Delete the archive from the web server
+    if (run("sudo rm /tmp/{}".format(archive)).failed):
+        return False
+
+    # move the contenet of web_static up
+    if run("sudo mv /data/web_static/releases/{}/web_static/* \
+    /data/web_static/releases/{}/"
+        .format(filename, filename)).failed:
+        return False
+    # delete web_static dir
+    if run("sudo rm -rf /data/web_static/releases/{}/web_static"
+        .format(filename)).failed:
+        return False
+
+    # Delete the symbolic link /data/web_static/current
+    if run("sudo rm -rf /data/web_static/current").failed:
+        return False
+    # Create a new the symbolic link /data/web_static/current
+    # on the web server,
+    # linked to the new version of your code
+    if run("sudo ln -s /data/web_static/releases/{}/ /data/web_static/current"
+        .format(filename)).failed:
+        return False
+    return True
