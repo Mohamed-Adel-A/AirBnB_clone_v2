@@ -27,27 +27,27 @@ def do_deploy(archive_path):
         # Upload the archive to the /tmp/ directory of the web server
         put(archive_path, "/tmp/")
         # create the folder to uncopress the archive to it
-        run("mkdir -p /data/web_static/releases/{}/".fomat(filename))
+        run("sudo mkdir -p /data/web_static/releases/{}/".fomat(filename))
         # Uncompress the archive
-        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
+        run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
             .format(archive, filename))
         # Delete the archive from the web server
-        run("rm /tmp/{}".format(archive))
+        run("sudo rm /tmp/{}".format(archive))
 
         # move the contenet of web_static up
-        run("mv /data/web_static/releases/{}/web_static/* \
+        run("sudo mv /data/web_static/releases/{}/web_static/* \
         /data/web_static/releases/{}/"
             .format(filename, filename))
         # delete web_static dir
-        run("rm -rf /data/web_static/releases/{}/web_static"
+        run("sudo rm -rf /data/web_static/releases/{}/web_static"
             .foramt(filename))
 
         # Delete the symbolic link /data/web_static/current
-        run("rm -rf /data/web_static/current")
+        run("sudo rm -rf /data/web_static/current")
         # Create a new the symbolic link /data/web_static/current
         # on the web server,
         # linked to the new version of your code
-        run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
+        run("sudo ln -s /data/web_static/releases/{}/ /data/web_static/current"
             .format(filename))
         return True
     except:
