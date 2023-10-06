@@ -27,6 +27,8 @@ def do_deploy(archive_path):
         # Upload the archive to the /tmp/ directory of the web server
         put(archive_path, "/tmp/")
         print("done 1")
+        print(archive)
+        print(filename)
         # create the folder to uncopress the archive to it
         run("sudo mkdir -p /data/web_static/releases/{}/".fomat(filename))
         print("done 2")
