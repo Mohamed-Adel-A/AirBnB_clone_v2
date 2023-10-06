@@ -30,19 +30,19 @@ def do_deploy(archive_path):
             .format(archive, filename))
         # Delete the archive from the web server
         run("rm /tmp/{}".format(archive))
-    
+
         # move the contenet of web_static up
         run("mv /data/web_static/releases/{}/web_static/* \
         /data/web_static/releases/{}/"
-           .format(filename, filename))
+            .format(filename, filename))
         # delete web_static dir
         run("rm -rf /data/web_static/releases/{}/web_static"
-           .foramt(filename))
-    
+            .foramt(filename))
+
         # Delete the symbolic link /data/web_static/current
         run("rm -rf /data/web_static/current")
         # Create a new the symbolic link /data/web_static/current
-        # on the web server, 
+        # on the web server,
         # linked to the new version of your code
         run("ln -s /data/web_static/releases/{}/ /data/web_static/current"
             .format(filename))
