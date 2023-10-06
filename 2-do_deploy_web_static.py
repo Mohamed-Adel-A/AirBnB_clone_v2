@@ -11,12 +11,12 @@ from fabric.api import env
 from fabric.api import put
 from fabric.api import run
 
+env.hosts = ['100.25.12.89', '18.206.233.88']
 
 def do_deploy(archive_path):
     if not path(archive_path):
         return (False)
 
-    env.hosts = ['100.25.12.89', '18.206.233.88']
     archive = archive_path.split('/')[-1]
     filename = archive.split('.')[0]
 
