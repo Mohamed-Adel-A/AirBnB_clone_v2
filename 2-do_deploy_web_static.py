@@ -23,38 +23,35 @@ def do_deploy(archive_path):
     archive = archive_path.split('/')[-1]
     filename = archive.split('.')[0]
 
-    try:
-        # Upload the archive to the /tmp/ directory of the web server
-        put(archive_path, "/tmp/")
-        print("done 1")
-        run("sudo mkdir /temp_dir/")
-        print(archive)
-        print(filename)
-        # create the folder to uncopress the archive to it
-        run("sudo mkdir -p /data/web_static/releases/{}/".fomat(filename))
-        print("done 2")
-        # Uncompress the archive
-        run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
-            .format(archive, filename))
-        # Delete the archive from the web server
-        run("sudo rm /tmp/{}".format(archive))
 
-        # move the contenet of web_static up
-        run("sudo mv /data/web_static/releases/{}/web_static/* \
-        /data/web_static/releases/{}/"
-            .format(filename, filename))
-        # delete web_static dir
-        run("sudo rm -rf /data/web_static/releases/{}/web_static"
-            .foramt(filename))
+    # Upload the archive to the /tmp/ directory of the web server
+    put(archive_path, "/tmp/")
+    print("done 1")
+    run("sudo mkdir /temp_dir/")
+    print(archive)
+    print(filename)
+    # create the folder to uncopress the archive to it
+    run("sudo mkdir -p /data/web_static/releases/{}/".fomat(filename))
+    print("done 2")
+    # Uncompress the archive
+    run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
+        .format(archive, filename))
+    # Delete the archive from the web server
+    run("sudo rm /tmp/{}".format(archive))
 
-        # Delete the symbolic link /data/web_static/current
-        run("sudo rm -rf /data/web_static/current")
-        # Create a new the symbolic link /data/web_static/current
-        # on the web server,
-        # linked to the new version of your code
-        run("sudo ln -s /data/web_static/releases/{}/ /data/web_static/current"
-            .format(filename))
-        return True
-    except:
-        print("failed")
-        return False
+    # move the contenet of web_static up
+    run("sudo mv /data/web_static/releases/{}/web_static/* \
+    /data/web_static/releases/{}/"
+        .format(filename, filename))
+    # delete web_static dir
+    run("sudo rm -rf /data/web_static/releases/{}/web_static"
+        .foramt(filename))
+
+    # Delete the symbolic link /data/web_static/current
+    run("sudo rm -rf /data/web_static/current")
+    # Create a new the symbolic link /data/web_static/current
+    # on the web server,
+    # linked to the new version of your code
+    run("sudo ln -s /data/web_static/releases/{}/ /data/web_static/current"
+        .format(filename))
+    return True
