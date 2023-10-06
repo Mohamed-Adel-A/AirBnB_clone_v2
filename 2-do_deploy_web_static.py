@@ -26,8 +26,10 @@ def do_deploy(archive_path):
     try:
         # Upload the archive to the /tmp/ directory of the web server
         put(archive_path, "/tmp/")
+        print("done 1")
         # create the folder to uncopress the archive to it
         run("sudo mkdir -p /data/web_static/releases/{}/".fomat(filename))
+        print("done 2")
         # Uncompress the archive
         run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}/"
             .format(archive, filename))
@@ -51,4 +53,5 @@ def do_deploy(archive_path):
             .format(filename))
         return True
     except:
+        print("failed")
         return False
