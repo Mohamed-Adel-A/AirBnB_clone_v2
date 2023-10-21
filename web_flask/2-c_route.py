@@ -34,7 +34,7 @@ def hbnb_route():
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def hbnb_route():
+def c_route():
     """
     display “C ” followed by the value of the text variable
     """
