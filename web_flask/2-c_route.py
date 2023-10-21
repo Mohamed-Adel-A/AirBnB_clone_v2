@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+t#!/usr/bin/python3
 """
 a script that starts a Flask web application
 - Your web application must be listening on 0.0.0.0, port 5000
@@ -34,7 +34,7 @@ def hbnb_route():
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def c_route():
+def c_route(text):
     """
     display “C ” followed by the value of the text variable
     """
