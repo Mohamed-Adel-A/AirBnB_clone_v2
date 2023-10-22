@@ -5,7 +5,7 @@
 -- Server version	5.7.8-rc
 
 
----change CHARSET=utf8mb4 from CHARSET=latin1
+/*change CHARSET=utf8mb4 from CHARSET=latin1*/
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
