@@ -21,8 +21,6 @@ def states_list_route():
     display a HTML page of state list
     """
     states_list = storage.all("State").values()
-    for state in states_list:
-        print(state)
     return (render_template("7-states_list.html", states_list=states_list))
 
 
