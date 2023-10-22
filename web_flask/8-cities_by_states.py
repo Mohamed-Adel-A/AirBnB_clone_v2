@@ -31,7 +31,8 @@ def cities_by_states_route():
     display a HTML page of state list
     """
     states_list = storage.all(State)
-    return (render_template("8-cities_by_states.html", states_list=states_list))
+    return (render_template("8-cities_by_states.html",
+                            states_list=states_list))
 
 
 @app.teardown_appcontext
