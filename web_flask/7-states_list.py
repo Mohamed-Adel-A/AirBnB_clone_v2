@@ -9,6 +9,7 @@
 
 from flask import Flask, render_template
 from models import storage
+from models.state import State
 
 
 app = Flask(__name__)
@@ -20,7 +21,7 @@ def states_list_route():
     """
     display a HTML page of state list
     """
-    states_list = storage.all("State")
+    states_list = storage.all(State)
     return (render_template("7-states_list.html", states_list=states_list))
 
 
