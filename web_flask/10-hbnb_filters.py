@@ -25,7 +25,7 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 
-@app.route("hbnb_filters")
+@app.route("/hbnb_filters")
 def hbnb_filters_route():
     states_list = storage.all(State).values()
     amenities = storage.all(Amenity).values()
