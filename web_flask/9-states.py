@@ -26,7 +26,7 @@ app.url_map.strict_slashes = False
 
 
 @app.route("/states")
-@app.route("/states/id")
+@app.route("/states/<id>")
 def states_route(id=None):
     """
     """
