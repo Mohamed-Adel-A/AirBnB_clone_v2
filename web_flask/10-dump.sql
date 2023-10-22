@@ -119,7 +119,3 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2017-03-25 19:44:44
-
-Highlight Text (
-Not set
-)
